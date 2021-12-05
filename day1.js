@@ -35,3 +35,6 @@ console.log('depth increase for other arr', countIncrease(sampleArr));
 
 // calculate increase count for puzzle input array
 console.log('depth increase for puzzle input', countIncrease(puzzleInputArray));
+
+
+export default countIncrease;
