@@ -4003,5 +4003,12 @@ let puzzleInputString = `199
 2341`;
 
 const puzzleInput = puzzleInputString.split(/\n/);
+// set new array to add integers from puzzleInput array
+const puzzleInputArray = [];
 
-export default puzzleInput;
+// use parseInt to change strings of integers to plain integers and push to new array
+for (let i = 0; i < puzzleInput.length; i++) {
+    puzzleInputArray.push(parseInt(puzzleInput[i]));
+}
+
+export default puzzleInputArray;
