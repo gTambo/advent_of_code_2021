@@ -7,32 +7,26 @@ function navigateSub(arr) {
     let y = 0;
     // new var for aim
     let aim = 0;
+    // loop through given array
     for (let index = 0; index < arr.length; index+=2) {
-        console.log('index', index);
+        // check for specific strings at each index 
         switch(arr[index]) {
             case 'forward':
-                console.log('in forward. Adding', arr[index + 1]);
-                x += parseInt(arr[(index + 1)]);
+                x += parseInt(arr[(index + 1)]); // the next index will be the integer or amount per instruction
                 y += aim * parseInt(arr[(index + 1)]);
-                console.log('x is', x);
-                console.log('aim is ', aim);
-                console.log('y is', y);
                 break;
             case 'down':
-                console.log('in down. Adding ', arr[index + 1]);
                 aim += parseInt(arr[(index + 1)]);
-                console.log('aim is ', aim);
                 break;
             case 'up':
-                console.log('in up. Subtracting ', arr[index + 1]);
                 aim -= parseInt(arr[(index + 1)]);
-                console.log('aim is ', aim);
                 break;
             default:
-                console.log('Not a valid instruction');
+                // in case we encounter a non-valid instruction e.g. an integer
                 break;
         }
     }
+    // give final coordinates in an object
     return { horizontal: x, depth: y };
 }
 
