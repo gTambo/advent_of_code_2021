@@ -8,26 +8,28 @@ function navigateSub(arr) {
     // new var for aim
     let aim = 0;
     for (let index = 0; index < arr.length; index+=2) {
-        // console.log('index', index);
+        console.log('index', index);
         switch(arr[index]) {
             case 'forward':
-                // console.log('in forward. Adding', arr[index + 1]);
+                console.log('in forward. Adding', arr[index + 1]);
                 x += parseInt(arr[(index + 1)]);
-                
-                // console.log('x is', x);
+                y += aim * parseInt(arr[(index + 1)]);
+                console.log('x is', x);
+                console.log('aim is ', aim);
+                console.log('y is', y);
                 break;
             case 'down':
-                // console.log('in down. Adding ', arr[index + 1]);
-                y += parseInt(arr[(index + 1)]);
-                // console.log('y is ', y);
+                console.log('in down. Adding ', arr[index + 1]);
+                aim += parseInt(arr[(index + 1)]);
+                console.log('aim is ', aim);
                 break;
             case 'up':
-                // console.log('in up. Subtracting ', arr[index + 1]);
-                y -= parseInt(arr[(index + 1)]);
-                // console.log('y is ', y);
+                console.log('in up. Subtracting ', arr[index + 1]);
+                aim -= parseInt(arr[(index + 1)]);
+                console.log('aim is ', aim);
                 break;
             default:
-                // console.log('Not a valid instruction');
+                console.log('Not a valid instruction');
                 break;
         }
     }
@@ -44,7 +46,7 @@ const sampleInstructions = [
 ];
 
 // test function with sample instructions array
-// console.log('result of sample instructions', navigateSubmarine(sampleInstructions));
+console.log('result of sample instructions', navigateSub(sampleInstructions));
 
 // calculate challenge instructions
 const finalLocation =navigateSub(instructionsArr); 
