@@ -4,6 +4,8 @@
     "authors": "author",
     "version": "1.0.0",
     "main": "pathToMain",
-    "dependencies": {},
+    "dependencies": {
+        "fs": "^0.0.1-security"
+    },
     "type": "module"
 }
