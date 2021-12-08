@@ -43,11 +43,34 @@ fs.readFile('input.txt', function(err, data) {
         const filterValue = checkBinaryValueFavorOne(index, oldArray);
         for (let i = 0; i < oldArray.length; i++) {
             let input = oldArray[i]
-            if(input[0] == filterValue) {
+            if(input[index] == filterValue) {
                 arrTwo.push(oldArray[i]);
             }
         }
         return arrTwo;
     }
-    console.log(newArray(0, arr));
+    
+    const arr1 = newArray(0, arr);
+    console.log('arr1', arr1);
+    const arr2 = newArray(1, arr1);
+    console.log('arr2', arr2);
+    const arr3 = newArray(2, arr2);
+    console.log('arr3', arr3);
+    const arr4 = newArray(3, arr3);
+    console.log('arr4', arr4);
+    const arr5 = newArray(4, arr4);
+    console.log('arr5', arr5);
+    const arr6 = newArray(5, arr5);
+    console.log('arr6', arr6);
+    const arr7 = newArray(6, arr6);
+    const arr8 = newArray(7, arr7);
+    console.log('arr8', arr8);
+    const arr9 = newArray(8, arr8);
+    console.log('arr9', arr9);
+    const arr10 = newArray(9, arr9);
+    console.log('arr10', arr10);
+    const arr11 = newArray(10, arr10);
+    console.log('arr11', arr11);
+
+    const OGRating = arr1[0];
 });
