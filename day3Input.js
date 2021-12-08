@@ -1,11 +1,11 @@
 import fs from 'fs';
 
-const arr = [];
+// const arr = [];
 
 fs.readFile('input.txt', function(err, data) {
     if(err) throw err;
 
-    arr.push(data.toString().replace(/\r\n/g,'\n').split('\n'));
+    const arr = (data.toString().replace(/\r\n/g,'\n').split('\n'));
 
     // console.log(arr);
 
@@ -25,10 +25,10 @@ fs.readFile('input.txt', function(err, data) {
     const positionB = [];
 
     //          then push from each position to each array, 
-    console.log('Length of arr is', arr[0].length);
-    for(let index = 0; index < arr[0].length; index++) {
+    console.log('Length of arr is', arr.length);
+    for(let index = 0; index < arr.length; index++) {
         // console.log(input);
-        let input = arr[0][index];
+        let input = arr[index];
         // console.log("input is: ", input);
         for (let i = 0; i < input.length; i++) {
             switch(i){
