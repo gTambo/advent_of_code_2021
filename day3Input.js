@@ -87,7 +87,7 @@ fs.readFile('input.txt', function(err, data) {
         }
     }
 
-    console.log('array for position 0 is', position0);
+    // console.log('array for position 0 is', position0);
 
      //          then check the count of each '1' and '0' for each array,
     const countBinaries = (arrayOfIntegers) => {
@@ -105,14 +105,70 @@ fs.readFile('input.txt', function(err, data) {
         return { ones: oneCount, zeros: zeroCount }
     }
 
+    const position0count = countBinaries(position0);
+    console.log('position zero counts', position0count);
    
+    const position1count = countBinaries(position1);
+    console.log('position one counts', position1count);
+    const position2count = countBinaries(position2);
+    console.log('position two counts', position2count);
+    const position3count = countBinaries(position3);
+    console.log('position three counts', position3count);
+    const position4count = countBinaries(position4);
+    console.log('position four counts', position4count);
+    const position5count = countBinaries(position5);
+    console.log('position five counts', position5count);
+    const position6count = countBinaries(position6);
+    console.log('position six counts', position6count);
+    const position7count = countBinaries(position7);
+    console.log('position seven counts', position7count);
+    const position8count = countBinaries(position8);
+    console.log('position eight counts', position8count);
+    const position9count = countBinaries(position9);
+    console.log('position nine counts', position9count);
+    const positionAcount = countBinaries(positionA);
+    console.log('position A counts', positionAcount);
+    const positionBcount = countBinaries(positionB);
+    console.log('position B counts', positionBcount);
     //          then compare the counts
+    // new variables for gamma and epsilon
+    const gamma = [];
+    const epsilon = [];
+
     //          then set the corresponding gamma position with the result of each array count comparison
+    const setRate = (obj) => {
+        
+        if (obj.ones > obj.zeros) {
+            gamma.push(1);
+            epsilon.push(0);
+        } else if (obj.zeros > obj.ones) {
+            gamma.push(0);
+            epsilon.push(1);
+        }
+    }
+
+    setRate(position0count);
+    setRate(position1count);
+    setRate(position2count);
+    setRate(position3count);
+    setRate(position4count);
+    setRate(position5count);
+    setRate(position6count);
+    setRate(position7count);
+    setRate(position8count);
+    setRate(position9count);
+    setRate(positionAcount);
+    setRate(positionBcount);
+    console.log("gamma", gamma, 'epsilon', epsilon);
+
     //          then set the corresponding epsilon rate with the opposite result
-    
+    const gammaActual = "".concat(...gamma);
+    const epsilonActual = "".concat(...epsilon);
+    console.log('Gamma', gammaActual, 'Epsilon', epsilonActual);
+   
+    let gammaAsInt = parseInt(gammaActual, 2);
+    console.log("gamma integer", gammaAsInt);
+    let epsilonAsInt = parseInt(epsilonActual, 2);
+    console.log('epsilon integer', epsilonAsInt);
+    console.log("Day 3 solution", gammaAsInt*epsilonAsInt);
 });
-
-// console.log('input array', arr);
-
-
-// export default arr;
