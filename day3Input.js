@@ -26,56 +26,59 @@ fs.readFile('input.txt', function(err, data) {
     const positionB = [];
 
     //          then push from each position to each array, 
-    for(let input of arr) {
-        console.log(input);
-        for (let i = 0; i < 12; i++) {
+    console.log('Length of arr is', arr[0].length);
+    for(let index = 0; index < arr[0].length; index++) {
+        // console.log(input);
+        let input = arr[0][index];
+        // console.log("input is: ", input);
+        for (let i = 0; i < input.length; i++) {
             switch(i){
                 case 0:
-                    console.log('at first position:', input[i]);
+                    // console.log('index is', index, 'at first position:', input[i]);
                     position0.push(input[i]);
                     break;
                 case 1:
-                    console.log('at second position:', input[i]);
+                    // console.log('index is', index, 'at second position:', input[i]);
                     position1.push(input[i]);
                     break;
                 case 2:
-                    console.log('at third position:', input[i]);
+                    // console.log('index is', index, 'at third position:', input[i]);
                     position2.push(input[i]);
                     break;
                 case 3:
-                    console.log('at fourth position:', input[i]);
+                    // console.log('index is', index, 'at fourth position:', input[i]);
                     position3.push(input[i]);
                     break;
                 case 4:
-                    console.log('at fifth position:', input[i]);
+                    // console.log('index is', index, 'at fifth position:', input[i]);
                     position4.push(input[i]);
                     break;
                 case 5:
-                    console.log('at sixth position:', input[i]);
+                    // console.log('index is', index, 'at sixth position:', input[i]);
                     position5.push(input[i]);
                     break;
                 case 6:
-                    console.log('at seventh position:', input[i]);
+                    // console.log('index is', index, 'at seventh position:', input[i]);
                     position6.push(input[i]);
                     break;
                 case 7:
-                    console.log('at eighth position:', input[i]);
+                    // console.log('index is', index, 'at eighth position:', input[i]);
                     position7.push(input[i]);
                     break;
                 case 8:
-                    console.log('at ninth position:', input[i]);
+                    // console.log('index is', index, 'at ninth position:', input[i]);
                     position8.push(input[i]);
                     break;
                 case 9:
-                    console.log('at tenth position:', input[i]);
+                    // console.log('index is', index, 'at tenth position:', input[i]);
                     position9.push(input[i]);
                     break;
                 case 10:
-                    console.log('at eleventh position:', input[i]);
+                    // console.log('index is', index, 'at eleventh position:', input[i]);
                     positionA.push(input[i]);
                     break;
                 case 11:
-                    console.log('at twelfth position:', input[i]);
+                    // console.log('index is', index, 'at twelfth position:', input[i]);
                     positionB.push(input[i]);
                     break;
                 default:
@@ -83,7 +86,26 @@ fs.readFile('input.txt', function(err, data) {
             }
         }
     }
-    //          then check the count of each '1' and '0' for each array,
+
+    console.log('array for position 0 is', position0);
+
+     //          then check the count of each '1' and '0' for each array,
+    const countBinaries = (arrayOfIntegers) => {
+        // counter for 1's
+        let oneCount = 0;
+        //  counter for o's
+        let zeroCount= 0;
+        for (let i = 0; i < arrayOfIntegers.length; i++) {
+            if (arrayOfIntegers[i] == '0') {
+                zeroCount++;
+            } else if (arrayOfIntegers[i] == '1') {
+                oneCount++;
+            }
+        }
+        return { ones: oneCount, zeros: zeroCount }
+    }
+
+   
     //          then compare the counts
     //          then set the corresponding gamma position with the result of each array count comparison
     //          then set the corresponding epsilon rate with the opposite result
