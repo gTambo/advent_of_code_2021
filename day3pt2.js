@@ -107,8 +107,8 @@ fs.readFile('input.txt', function(err, data) {
     const arr11 = newArray(10, arr10);
     // console.log('arr11', arr11);
 
-    const o2GenRating = arr11[0];
-    console.log(o2GenRating);
+    const o2GenRating = parseInt(arr11[0], 2);
+    
     const findO2Results = (array) => {
         for (let i = 0; i < 12; i++) {
             console.log('array length:', array.length);
@@ -118,7 +118,7 @@ fs.readFile('input.txt', function(err, data) {
             array = newArray(i, array);
         }
     }
-    const oxygenGenRating = findO2Results(arr);
+    const oxygenGenRating = parseInt(findO2Results(arr), 2);
     console.log("O2 generator rating found with loop", oxygenGenRating);
 
     const findCO2Results = (array) => {
@@ -130,6 +130,10 @@ fs.readFile('input.txt', function(err, data) {
             array = newArrayLesser(i, array);
         }
     }
-    const CO2ScrubRating = findCO2Results(arr);
+    const CO2ScrubRating = parseInt(findCO2Results(arr), 2);
     console.log("CO2 Scrub rating found with loop", CO2ScrubRating);
+    // console.log("previously found O2 rating, as integer", o2GenRating);
+    console.log('Anser:', oxygenGenRating*CO2ScrubRating);
+}).catch(err => {
+    console.log('Error', err);
 });
