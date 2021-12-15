@@ -108,9 +108,10 @@ fs.readFile('inputD8.txt', function(err, data) {
                 p4 = eight.split('').diff(nine.split(''));
                 console.log('position Four:', p4);
             }
+            // TO DO Correct the condition below
             if (p3 && eight != '') {
                 zero = eight.split('').filter(x => x != p3).join('');
-                console.log('Zero:', zero);
+                console.log('Not Zero:', zero);
             }
             // if (eight.split('').intersect(row[i].split('')).length === 6) {
             //     console.log('found Zero', row[i]);
