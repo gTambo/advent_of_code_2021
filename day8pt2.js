@@ -10,7 +10,7 @@ fs.readFile('inputD8.txt', function(err, data) {
     if(err) throw err;
 
     // 7 possible positions
-    let p0; // top 
+    let p0; // top // Found by the diff between 7 and 1
     let p1; // upper left 
     let p2; // upper right
     let p3; // center
@@ -40,10 +40,8 @@ fs.readFile('inputD8.txt', function(err, data) {
     Array.prototype.diff = function(arr2) { return this.filter(x => !arr2.includes(x)); }
 
     // for example
-    const arr1 = ['a', 'b'];
-    const arr2 = ['a', 'b', 'c', 'd'];
-    // console.log(arr1.diff(arr2));
-    // console.log(arr1.intersect(arr2));
+    const arr1 = ['a', 'b', 'c', 'd', 'e', 'f'];
+    const arr2 = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
 
     const first = input[0];
     const second = input[1];
@@ -56,24 +54,50 @@ fs.readFile('inputD8.txt', function(err, data) {
         console.log("row ", index);
         const row = input[index].split(/\s+/);
         // console.log("row is ", row);
+        let zero = '';
+        let one = '';
+        let two= '';
+        let three = '';
+        let four = '';
+        let five = '';
+        let six = '';
+        let seven = '';
+        let eight = '';
+        let nine = '';
+
         for (let i = 0; i < row.length; i++){
             switch(row[i].length){
                 case 2:
-                    console.log('found One: ', row[i]);
+                    one = row[i];
+                    console.log('found One:', one);
                     break;
                 case 3:
-                    console.log('found Seven: ', row[i]);
+                    seven = row[i];
+                    console.log('found Seven:', seven);
                     break;
                 case 4:
-                    console.log('found Four: ', row[i]);
+                    four = row[i];
+                    console.log('found Four:', four);
                     break;
                 case 7:
-                    console.log('found Eight: ', row[i]);
+                    eight = row[i];
+                    console.log('found Eight:', eight);
                     break;
                 default:
                     // console.log('No matches');
                     break;
             }
+            if(seven != '' && one != '') {
+                p0 = seven.split('').diff(one.split(''));
+                console.log('Position zero:', p0);
+            }
+            if (p3 && eight != '') {
+                zero = eight.split('').filter(x => x != p3).join('');
+                console.log('Zero:', zero);
+            }
+            // if (eight.split('').intersect(row[i].split('')).length === 6) {
+            //     console.log('found Zero', row[i]);
+            // }
             // console.log("input is ", input[row + i]);
             // if (input[row + i].length === 2) {
             //     console.log('found One: ', input[row + i]);
@@ -81,6 +105,8 @@ fs.readFile('inputD8.txt', function(err, data) {
             
         }
     }
+    // console.log(arr2.diff(arr1));
+    // console.log(arr1.intersect(arr2));
     console.log(input.length);
     // console.log(input.at(52));
 
