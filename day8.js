@@ -1,10 +1,16 @@
 import fs from 'fs';
 
+// let intersection = arr1.filter(x => arr2.includes(x));
+
+// let difference = arr1
+//                  .filter(x => !arr2.includes(x))
+//                  .concat(arr2.filter(x => !arr1.includes(x)));
+
 fs.readFile('inputD8.txt', function(err, data) {
     if(err) throw err;
 
     // 7 possible positions
-    let p0; // top
+    let p0; // top 
     let p1; // upper left 
     let p2; // upper right
     let p3; // center
@@ -26,23 +32,34 @@ fs.readFile('inputD8.txt', function(err, data) {
     // '6' .length == 6
     // '9' .length == 6
 
+
+
     const input = data.toString().replace(/\r\n/g,'\n').split(/\s+/);
     
+    Array.prototype.intersect = function(arr2) { return this.filter(x => arr2.includes(x)); }
+    Array.prototype.diff = function(arr2) { return this.filter(x => !arr2.includes(x)).concat(arr2.filter(x => !arr1.includes(x))); }
+
+    const arr1 = ['a', 'b'];
+    const arr2 = ['a', 'b', 'c', 'd'];
+
+    console.log(arr1.diff(arr2));
+    console.log(arr1.intersect(arr2));
+
     let count1470 = 0;
     for (let i =0; i < input.length; i++) {
         // console.log(input[i],',');
         
         if (input[i] === '|') {
-            console.log('Current value', input[i], 'at input', i);
+            // console.log('Current value', input[i], 'at input', i);
             for (let value = 1; value < 5; value++) {
-                console.log('Next value', input[i + value]);
+                // console.log('Next value', input[i + value]);
 
                 if (input[i + value].length === 2 || 
                     input[i + value].length === 3 || 
                     input[i + value].length === 4 || 
                     input[i + value].length === 7) {
                         count1470++;
-                        console.log('count', count1470);
+                        // console.log('count', count1470);
                     }
             }
         }
