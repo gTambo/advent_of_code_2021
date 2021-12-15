@@ -11,9 +11,9 @@ fs.readFile('inputD8.txt', function(err, data) {
 
     // 7 possible positions
     let p0; // top // Found by the diff between 7 and 1
-    let p1; // upper left 
-    let p2; // upper right
-    let p3; // center
+    let p1; // upper left // included in 4, 5, 6, 8, 9, 0
+    let p2; // upper right // included in 1, 2, 3, 4, 7, 8, 9, 0 (everything except 5 and 6)
+    let p3; // center // included in 2, 3, 4, 5, 6, 8, 9 -- difference between 8 and 0
     let p4; // lower left
     let p5; // lower right
     let p6; // bottom
@@ -90,6 +90,18 @@ fs.readFile('inputD8.txt', function(err, data) {
             if(seven != '' && one != '') {
                 p0 = seven.split('').diff(one.split(''));
                 console.log('Position zero:', p0);
+            }
+            if (p0 && four != '' && row[i].length === 6) {
+                let notNine = four.split('').concat(p0);
+                console.log('compare', notNine, 'with input', row[i]);
+                if(row[i].split('').diff(notNine).length === 1){
+                    nine = row[i];
+                    console.log('found Nine:', nine);
+                }
+            }
+            if (eight != '' && nine != '') {
+                p4 = eight.split('').diff(nine.split(''));
+                console.log('position Four:', p4);
             }
             if (p3 && eight != '') {
                 zero = eight.split('').filter(x => x != p3).join('');
