@@ -14,7 +14,7 @@ fs.readFile('inputD8.txt', function(err, data) {
     let p1; // upper left // included in 4, 5, 6, 8, 9, 0
     let p2; // upper right // included in 1, 2, 3, 4, 7, 8, 9, 0 (everything except 5 and 6)
     let p3; // center // included in 2, 3, 4, 5, 6, 8, 9 -- difference between 8 and 0
-    let p4; // lower left
+    let p4; // lower left // found by the diff between 8 and 9
     let p5; // lower right
     let p6; // bottom
 
@@ -97,7 +97,12 @@ fs.readFile('inputD8.txt', function(err, data) {
                 if(row[i].split('').diff(notNine).length === 1){
                     nine = row[i];
                     console.log('found Nine:', nine);
+                    p6 = row[i].split('').diff(notNine);
+                    console.log('Position 6:', p6);
                 }
+            }
+            if (four != '' && nine != '')  {
+
             }
             if (eight != '' && nine != '') {
                 p4 = eight.split('').diff(nine.split(''));
