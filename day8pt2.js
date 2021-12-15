@@ -34,16 +34,14 @@ fs.readFile('inputD8.txt', function(err, data) {
 
 
 
-    const input = data.toString().replace(/\r\n/g,'\n').split(/\s+/);
+    const input = data.toString().replace(/\r\n/g,'\n').split(/\n/);
     
     Array.prototype.intersect = function(arr2) { return this.filter(x => arr2.includes(x)); }
     Array.prototype.diff = function(arr2) { return this.filter(x => !arr2.includes(x)); }
 
+    // for example
     const arr1 = ['a', 'b'];
     const arr2 = ['a', 'b', 'c', 'd'];
-
-
-
     // console.log(arr1.diff(arr2));
     // console.log(arr1.intersect(arr2));
 
@@ -54,21 +52,23 @@ fs.readFile('inputD8.txt', function(err, data) {
 
     // use while loop to count 'rows'
     // while (rowCount < 200) {
-    for (let row = 0; row < input.length; row+=15) {
-        console.log("row is ", row);
-        for (let i = 0; i < 15; i++){
-            switch(input[row + i].length){
+    for (let index = 0; index < input.length; index+=1) {
+        console.log("row ", index);
+        const row = input[index].split(/\s+/);
+        // console.log("row is ", row);
+        for (let i = 0; i < row.length; i++){
+            switch(row[i].length){
                 case 2:
-                    console.log('found One: ', input[row + i]);
+                    console.log('found One: ', row[i]);
                     break;
                 case 3:
-                    console.log('found Seven: ', input[row + i]);
+                    console.log('found Seven: ', row[i]);
                     break;
                 case 4:
-                    console.log('found Four: ', input[row + i]);
+                    console.log('found Four: ', row[i]);
                     break;
                 case 7:
-                    console.log('found Eight: ', input[row + i]);
+                    console.log('found Eight: ', row[i]);
                     break;
                 default:
                     // console.log('No matches');
