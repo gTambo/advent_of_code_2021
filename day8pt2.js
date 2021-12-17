@@ -61,7 +61,7 @@ fs.readFile('inputD8.txt', function(err, data) {
         const rowSplit = input[index].split('|');
         // console.log('Row split on |', rowSplit);
         const lastFour = rowSplit[1].split(/\s+/).filter(x => x != '');
-        // console.log("should be the output values for each line", lastFour);
+        console.log("Last Four", lastFour);
         // outputValues.push(lastFour);
 
         // 7 possible positions
@@ -340,16 +340,8 @@ fs.readFile('inputD8.txt', function(err, data) {
             }
         }
         
-        
 
-        // This isn't guaranteed
-        if (signalPatterns.seven != 0 && signalPatterns.two != '' && p4 && p6) {
-            let notQuiteTwo = signalPatterns.seven.split('').concat(p4, p6);
-            // console.log('Seven plus p4 and p6', notQuiteTwo, 'vs Two:', signalPatterns.two.split(''));
-            p3 = signalPatterns.two.split('').diff(notQuiteTwo);
-            // console.log('Position 3:', p3);
-        }
-        // console.log('Signal Patterns', signalPatterns, 'for row', index);
+        console.log('Signal Patterns', signalPatterns, 'for row', index);
         // console.log('Found the following positions:', p0, p1, p2, p3, p4, p5, p6);
 
         // Using the signal patterns info found above, decode the lastFour
@@ -359,37 +351,47 @@ fs.readFile('inputD8.txt', function(err, data) {
         const outputConversionArray = [];
         for(let item = 0; item < lastFour.length; item++) {
             let a = lastFour[item]
-            console.log('');
+            console.log('value', a, 'at index', item);
             
             switch(true) {
-                case a.split('').intersect(signalPatterns.one.split('')).length == a.length:
+                case a.length === signalPatterns.one.length && 
+                    a.split('').intersect(signalPatterns.one.split('')).length == a.length:
                     outputConversionArray.push(1);
                     break;
-                case a.split('').intersect(signalPatterns.two.split('')).length == a.length:
+                case a.length === signalPatterns.two.length && 
+                    a.split('').intersect(signalPatterns.two.split('')).length == a.length:
                     outputConversionArray.push(2);
                     break;
-                case a.split('').intersect(signalPatterns.three.split('')).length == a.length:
+                case a.length === signalPatterns.three.length && 
+                    a.split('').intersect(signalPatterns.three.split('')).length == a.length:
                     outputConversionArray.push(3);
                     break;
-                case a.split('').intersect(signalPatterns.four.split('')).length == a.length:
+                case a.length === signalPatterns.four.length && 
+                    a.split('').intersect(signalPatterns.four.split('')).length == a.length:
                     outputConversionArray.push(4);
                     break;
-                case a.split('').intersect(signalPatterns.five.split('')).length == a.length:
+                case a.length === signalPatterns.five.length && 
+                    a.split('').intersect(signalPatterns.five.split('')).length == a.length:
                     outputConversionArray.push(5);
                     break;
-                case a.split('').intersect(signalPatterns.six.split('')).length == a.length:
+                case a.length === signalPatterns.six.length && 
+                    a.split('').intersect(signalPatterns.six.split('')).length == a.length:
                     outputConversionArray.push(6);
                     break;
-                case a.split('').intersect(signalPatterns.seven.split('')).length == a.length:
+                case a.length === signalPatterns.seven.length && 
+                    a.split('').intersect(signalPatterns.seven.split('')).length == a.length:
                     outputConversionArray.push(7);
                     break;
-                case a.split('').intersect(signalPatterns.eight.split('')).length == a.length:
+                case a.length === signalPatterns.eight.length && 
+                    a.split('').intersect(signalPatterns.eight.split('')).length == a.length:
                     outputConversionArray.push(8);
                     break;
-                case a.split('').intersect(signalPatterns.nine.split('')).length == a.length:
+                case a.length === signalPatterns.nine.length && 
+                    a.split('').intersect(signalPatterns.nine.split('')).length == a.length:
                     outputConversionArray.push(9);
                     break;
-                case a.split('').intersect(signalPatterns.zero.split('')).length == a.length:
+                case a.length === signalPatterns.zero.length && 
+                    a.split('').intersect(signalPatterns.zero.split('')).length == a.length:
                     outputConversionArray.push(0);
                     break;
                 default:
@@ -403,6 +405,11 @@ fs.readFile('inputD8.txt', function(err, data) {
     }
     
     console.log('Input length:', input.length);
-    console.log('Array of outputs', outputValues, 'is', outputValues.length, 'lines long');
-
+    console.log('Array of outputs is', outputValues.length, 'lines long');
+    // count outputValues array
+    let sum = 0;
+    for (let i = 0; i < outputValues.length; i++) {
+        sum += outputValues[i];
+    }
+    console.log('sum of output array', sum);
 });
