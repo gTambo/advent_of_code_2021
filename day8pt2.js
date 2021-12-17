@@ -116,7 +116,7 @@ fs.readFile('inputD8.txt', function(err, data) {
             }
             if (p0 && signalPatterns.four != '' && row[i].length === 6) {
                 let notNine = signalPatterns.four.split('').concat(p0);
-                console.log('compare', notNine, 'with input', row[i]);
+                // console.log('compare', notNine, 'with input', row[i]);
                 if(row[i].split('').diff(notNine).length === 1){
                     signalPatterns.nine = row[i];
                     console.log('found Nine:', signalPatterns.nine);
@@ -155,35 +155,39 @@ fs.readFile('inputD8.txt', function(err, data) {
                 if (checkNum.intersect(signalPatterns.seven.split('')).length == 2 && checkNum.intersect(signalPatterns.four.split('')).length == 2) {
  
                     signalPatterns.two = row[i];
-                    console.log('found two', signalPatterns.two);
+                    // console.log('found two', signalPatterns.two);
                 }
             }
 
-            // TO DO Correct the condition below
-            // if (nine != '' && eight != '' && row[i].length === 5) {
-            //     console.log('compare with nine', nine);
-            //     if (nine.diff(row[i]).length === 1) {
-            //         three = row[i];
-            //         console.log('found Three', row[i]);
-            //     }
-            // }
-            if (row[i].length === 6 && signalPatterns.eight != '' && signalPatterns.nine != '') {
-                if (signalPatterns.eight.split('').intersect(row[i].split('')).length === 6 &&
-                    signalPatterns.nine.split('').intersect(row[i].split('')).length == 5) {
-                    signalPatterns.zero = row[i];
-                    console.log('found Zero', row[i]);
-                }
+            if (signalPatterns.seven != 0 && signalPatterns.two != '') {
+                const notP5 = signalPatterns.two.split('').intersect(signalPatterns.seven.split(''));
+                // console.log("positions in common between 7 and 2:", notP5);
+                p5 = signalPatterns.seven.split('').diff(notP5);
+                // console.log("position 5:", p5);
             }
-            // console.log("input is ", input[row + i]);
-            // if (input[row + i].length === 2) {
-            //     console.log('found One: ', input[row + i]);
-            // }
-            
+
+            if (signalPatterns.eight != '' && p5) {
+                signalPatterns.zero = signalPatterns.eight.split('').filter(x => x != p5).join('');
+                // console.log('found Zero', signalPatterns.zero);
+            }
+
+            if (p4 && signalPatterns.five != '') {
+                signalPatterns.six = signalPatterns.five.split('').concat(p4).join('');
+                // console.log('found Six', signalPatterns.six);
+            }
+
+            // This isn't guaranteed
+            if (signalPatterns.seven != 0 && signalPatterns.two != '' && p4 && p6) {
+                let notQuiteTwo = signalPatterns.seven.split('').concat(p4, p6);
+                // console.log('Seven plus p4 and p6', notQuiteTwo, 'vs Two:', signalPatterns.two.split(''));
+                p3 = signalPatterns.two.split('').diff(notQuiteTwo);
+                // console.log('Position 3:', p3);
+            }
         }
+        console.log('Signal Patterns', signalPatterns, 'for row', row);
     }
     // console.log(arr2.diff(arr1));
     // console.log(arr1.intersect(arr2));
     console.log(input.length);
-    // console.log(input.at(52));
 
 });
