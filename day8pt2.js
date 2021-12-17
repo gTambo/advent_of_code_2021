@@ -10,13 +10,13 @@ fs.readFile('inputD8.txt', function(err, data) {
     if(err) throw err;
 
     // 7 possible positions
-    let p0; // top // Found by the diff between 7 and 1
-    let p1; // upper left // included in 4, 5, 6, 8, 9, 0
-    let p2; // upper right // included in 1, 2, 3, 4, 7, 8, 9, 0 (everything except 5 and 6)
-    let p3; // center // included in 2, 3, 4, 5, 6, 8, 9 -- difference between 8 and 0
-    let p4; // lower left // found by the diff between 8 and 9
-    let p5; // lower right
-    let p6; // bottom
+    // let p0; // top // Found by the diff between 7 and 1
+    // let p1; // upper left // included in 4, 5, 6, 8, 9, 0
+    // let p2; // upper right // included in 1, 2, 3, 4, 7, 8, 9, 0 (everything except 5 and 6)
+    // let p3; // center // included in 2, 3, 4, 5, 6, 8, 9 -- difference between 8 and 0
+    // let p4; // lower left // found by the diff between 8 and 9
+    // let p5; // lower right
+    // let p6; // bottom
 
     // unique signal patterns
     // 1 => input[i].length == 2;
@@ -31,6 +31,7 @@ fs.readFile('inputD8.txt', function(err, data) {
     // '5' .length == 5
     // '6' .length == 6
     // '9' .length == 6
+
 
 
 
@@ -54,68 +55,125 @@ fs.readFile('inputD8.txt', function(err, data) {
         console.log("row ", index);
         const row = input[index].split(/\s+/);
         // console.log("row is ", row);
-        let zero = '';
-        let one = '';
-        let two= '';
-        let three = '';
-        let four = '';
-        let five = '';
-        let six = '';
-        let seven = '';
-        let eight = '';
-        let nine = '';
+        // let zero = '';
+        // let one = '';
+        // let two= '';
+        // let three = '';
+        // let four = '';
+        // let five = '';
+        // let six = '';
+        // let seven = '';
+        // let eight = '';
+        // let nine = '';
+
+        // 7 possible positions
+        let p0; // top // Found by the diff between 7 and 1
+        let p1; // upper left // included in 4, 5, 6, 8, 9, 0
+        let p2; // upper right // included in 1, 2, 3, 4, 7, 8, 9, 0 (everything except 5 and 6)
+        let p3; // center // included in 2, 3, 4, 5, 6, 8, 9 -- difference between 8 and 0
+        let p4; // lower left // found by the diff between 8 and 9
+        let p5; // lower right
+        let p6; // bottom
+        const signalPatterns = {
+            zero: '',
+            one: '',
+            two: '',
+            three: '',
+            four: '',
+            five: '',
+            six: '',
+            seven: '',
+            eight: '',
+            nine: ''
+        }
 
         for (let i = 0; i < row.length; i++){
+            
             switch(row[i].length){
                 case 2:
-                    one = row[i];
-                    console.log('found One:', one);
+                    signalPatterns.one = row[i];
+                    console.log('found One:', signalPatterns.one);
                     break;
                 case 3:
-                    seven = row[i];
-                    console.log('found Seven:', seven);
+                    signalPatterns.seven = row[i];
+                    console.log('found Seven:', signalPatterns.seven);
                     break;
                 case 4:
-                    four = row[i];
-                    console.log('found Four:', four);
+                    signalPatterns.four = row[i];
+                    console.log('found Four:', signalPatterns.four);
                     break;
                 case 7:
-                    eight = row[i];
-                    console.log('found Eight:', eight);
+                    signalPatterns.eight = row[i];
+                    console.log('found Eight:', signalPatterns.eight);
                     break;
                 default:
                     // console.log('No matches');
                     break;
             }
-            if(seven != '' && one != '') {
-                p0 = seven.split('').diff(one.split(''));
+            if(signalPatterns.seven != '' && signalPatterns.one != '') {
+                p0 = signalPatterns.seven.split('').diff(signalPatterns.one.split(''));
                 console.log('Position zero:', p0);
             }
-            if (p0 && four != '' && row[i].length === 6) {
-                let notNine = four.split('').concat(p0);
+            if (p0 && signalPatterns.four != '' && row[i].length === 6) {
+                let notNine = signalPatterns.four.split('').concat(p0);
                 console.log('compare', notNine, 'with input', row[i]);
                 if(row[i].split('').diff(notNine).length === 1){
-                    nine = row[i];
-                    console.log('found Nine:', nine);
+                    signalPatterns.nine = row[i];
+                    console.log('found Nine:', signalPatterns.nine);
                     p6 = row[i].split('').diff(notNine);
-                    console.log('Position 6:', p6);
+                    console.log('Position Six:', p6);
                 }
             }
-            if (four != '' && nine != '')  {
-
-            }
-            if (eight != '' && nine != '') {
-                p4 = eight.split('').diff(nine.split(''));
+            
+            if (signalPatterns.eight != '' && signalPatterns.nine != '') {
+                p4 = signalPatterns.eight.split('').diff(signalPatterns.nine.split(''));
                 console.log('position Four:', p4);
             }
-            // TO DO Correct the condition below
-            if (p3 && eight != '') {
-                zero = eight.split('').filter(x => x != p3).join('');
-                console.log('Not Zero:', zero);
+
+            if (signalPatterns.seven != '' && signalPatterns.four != '' && row[i].length == 5) {
+                let checkNum = row[i].split('');
+                if (checkNum.intersect(signalPatterns.seven.split('')).length == 2 && checkNum.intersect(signalPatterns.four.split('')).length == 3) {
+                    signalPatterns.five = row[i];
+                    console.log('found Five', signalPatterns.five);
+                }
             }
-            // if (eight.split('').intersect(row[i].split('')).length === 6) {
-            //     console.log('found Zero', row[i]);
+
+            if (signalPatterns.seven != '' && signalPatterns.four != '' && row[i].length == 5) {
+                let checkNum = row[i].split('');
+                // console.log('could this be three?', checkNum);
+                if (checkNum.intersect(signalPatterns.seven.split('')).length == 3 && checkNum.intersect(signalPatterns.four.split('')).length == 3) {
+                    signalPatterns.three = row[i];
+                    console.log('found three', signalPatterns.three);
+                }
+            }
+
+            if (signalPatterns.seven != '' && signalPatterns.four != '' && row[i].length == 5) {
+                let checkNum = row[i].split('');
+                // console.log('could this be two?', checkNum);
+                // console.log('In common with Seven', checkNum.intersect(signalPatterns.seven.split('')));
+                // console.log('In common with Four', checkNum.intersect(signalPatterns.four.split('')));
+                if (checkNum.intersect(signalPatterns.seven.split('')).length == 2 && checkNum.intersect(signalPatterns.four.split('')).length == 2) {
+ 
+                    signalPatterns.two = row[i];
+                    console.log('found two', signalPatterns.two);
+                }
+            }
+
+            // TO DO Correct the condition below
+            // if (nine != '' && eight != '' && row[i].length === 5) {
+            //     console.log('compare with nine', nine);
+            //     if (nine.diff(row[i]).length === 1) {
+            //         three = row[i];
+            //         console.log('found Three', row[i]);
+            //     }
             // }
+            if (row[i].length === 6 && signalPatterns.eight != '' && signalPatterns.nine != '') {
+                if (signalPatterns.eight.split('').intersect(row[i].split('')).length === 6 &&
+                    signalPatterns.nine.split('').intersect(row[i].split('')).length == 5) {
+                    signalPatterns.zero = row[i];
+                    console.log('found Zero', row[i]);
+                }
+            }
             // console.log("input is ", input[row + i]);
             // if (input[row + i].length === 2) {
             //     console.log('found One: ', input[row + i]);
