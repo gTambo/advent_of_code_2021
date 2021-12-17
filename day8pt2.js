@@ -89,6 +89,19 @@ fs.readFile('inputD8.txt', function(err, data) {
 
         for (let i = 0; i < row.length; i++){
             
+            if (p4 && signalPatterns.five != '') {
+                signalPatterns.six = signalPatterns.five.split('').concat(p4).join('');
+                // console.log('found Six', signalPatterns.six);
+            }
+
+            if (signalPatterns.seven && signalPatterns.four && row[i].length == 5) {
+                let checkNum = row[i].split('');
+                if (checkNum.intersect(signalPatterns.seven.split('')).length == 2 && checkNum.intersect(signalPatterns.four.split('')).length == 3) {
+                    signalPatterns.five = row[i];
+                    // console.log('found Five', signalPatterns.five);
+                }
+            }
+
             switch(row[i].length){
                 case 2:
                     signalPatterns.one = row[i];
@@ -124,19 +137,15 @@ fs.readFile('inputD8.txt', function(err, data) {
                     // console.log('Position Six:', p6);
                 }
             }
+
             
+
             if (signalPatterns.eight != '' && signalPatterns.nine != '') {
                 p4 = signalPatterns.eight.split('').diff(signalPatterns.nine.split(''));
                 // console.log('position Four:', p4);
             }
 
-            if (signalPatterns.seven != '' && signalPatterns.four != '' && row[i].length == 5) {
-                let checkNum = row[i].split('');
-                if (checkNum.intersect(signalPatterns.seven.split('')).length == 2 && checkNum.intersect(signalPatterns.four.split('')).length == 3) {
-                    signalPatterns.five = row[i];
-                    // console.log('found Five', signalPatterns.five);
-                }
-            }
+
 
             if (signalPatterns.seven.length > 0 && signalPatterns.four.length > 0 && row[i].length == 5) {
                 let checkNum = row[i].split('');
@@ -201,10 +210,7 @@ fs.readFile('inputD8.txt', function(err, data) {
             // console.log('found Zero', signalPatterns.zero);
         }
 
-        if (p4 && signalPatterns.five != '') {
-            signalPatterns.six = signalPatterns.five.split('').concat(p4).join('');
-            // console.log('found Six', signalPatterns.six);
-        }
+        
 
         // This isn't guaranteed
         if (signalPatterns.seven != 0 && signalPatterns.two != '' && p4 && p6) {
@@ -214,6 +220,7 @@ fs.readFile('inputD8.txt', function(err, data) {
             // console.log('Position 3:', p3);
         }
         console.log('Signal Patterns', signalPatterns, 'for row', index);
+        console.log('Found the following positions:', p0, p1, p2, p3, p4, p5, p6);
     }
     // console.log(arr2.diff(arr1));
     // console.log(arr1.intersect(arr2));
