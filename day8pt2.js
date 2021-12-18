@@ -380,44 +380,34 @@ fs.readFile('inputD8.txt', function(err, data) {
             console.log('value', a, 'at index', item);
             
             switch(true) {
-                case a.length === signalPatterns.one.length && 
-                    a.split('').intersect(signalPatterns.one.split('')).length == a.length:
+                case equalsIgnoreOrder(a, signalPatterns.one.split('')):
                     outputConversionArray.push(1);
                     break;
-                case a.length === signalPatterns.two.length && 
-                    a.split('').intersect(signalPatterns.two.split('')).length == a.length:
+                case equalsIgnoreOrder(a, signalPatterns.two.split('')):
                     outputConversionArray.push(2);
                     break;
-                case a.length === signalPatterns.three.length && 
-                    a.split('').intersect(signalPatterns.three.split('')).length == a.length:
+                case equalsIgnoreOrder(a, signalPatterns.three.split('')):
                     outputConversionArray.push(3);
                     break;
-                case a.length === signalPatterns.four.length && 
-                    a.split('').intersect(signalPatterns.four.split('')).length == a.length:
+                case equalsIgnoreOrder(a, signalPatterns.four.split('')):
                     outputConversionArray.push(4);
                     break;
-                case a.length === signalPatterns.five.length && 
-                    a.split('').intersect(signalPatterns.five.split('')).length == a.length:
+                case equalsIgnoreOrder(a, signalPatterns.five.split('')):
                     outputConversionArray.push(5);
                     break;
-                case a.length === signalPatterns.six.length && 
-                    a.split('').intersect(signalPatterns.six.split('')).length == a.length:
+                case equalsIgnoreOrder(a, signalPatterns.six.split('')):
                     outputConversionArray.push(6);
                     break;
-                case a.length === signalPatterns.seven.length && 
-                    a.split('').intersect(signalPatterns.seven.split('')).length == a.length:
+                case equalsIgnoreOrder(a, signalPatterns.seven.split('')):
                     outputConversionArray.push(7);
                     break;
-                case a.length === signalPatterns.eight.length && 
-                    a.split('').intersect(signalPatterns.eight.split('')).length == a.length:
+                case equalsIgnoreOrder(a, signalPatterns.eight.split('')):
                     outputConversionArray.push(8);
                     break;
-                case a.length === signalPatterns.nine.length && 
-                    a.split('').intersect(signalPatterns.nine.split('')).length == a.length:
+                case equalsIgnoreOrder(a, signalPatterns.nine.split('')):
                     outputConversionArray.push(9);
                     break;
-                case a.length === signalPatterns.zero.length && 
-                    a.split('').intersect(signalPatterns.zero.split('')).length == a.length:
+                case equalsIgnoreOrder(a, signalPatterns.zero.split('')):
                     outputConversionArray.push(0);
                     break;
                 default:
