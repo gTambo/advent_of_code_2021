@@ -43,7 +43,23 @@ fs.readFile('inputD8.txt', function(err, data) {
     // let eight = '';
     // let nine = '';
 
+    // Function to compare the contents of two arrays out of order
+    const equalsIgnoreOrder = (a, b) => {
+        if (a.length !== b.length) return false;
+        const uniqueValues = new Set([...a, ...b]);
+        for (const v of uniqueValues) {
+          const aCount = a.filter(e => e === v).length;
+          const bCount = b.filter(e => e === v).length;
+          if (aCount !== bCount) return false;
+        }
+        return true;
+      }
 
+      const arrA = ['a', 'c', 'b', 'd'];
+      const arrB = ['b', 'a', 'd', 'c'];
+      const arrC = ['b', 'a', 'g', 'd'];
+
+  
 
     const input = data.toString().replace(/\r\n/g,'\n').split(/\n/);
     
@@ -154,6 +170,12 @@ fs.readFile('inputD8.txt', function(err, data) {
                 }
             }
 
+            // find position Three
+            if (p0 && p6 && signalPatterns.two && signalPatterns.three && signalPatterns.five) {
+                p3 = signalPatterns.two.split('').intersect(signalPatterns.five.split('')).intersect(signalPatterns.three.split('')).filter(x => x != p0).filter(x => x != p6);
+                console.log('Is this p3?', p3);
+            }
+
             // find position four
             if (signalPatterns.eight != '' && signalPatterns.nine != '') {
                 p4 = signalPatterns.eight.split('').diff(signalPatterns.nine.split(''));
@@ -205,13 +227,13 @@ fs.readFile('inputD8.txt', function(err, data) {
                 // console.log('found Six', signalPatterns.six);
             }
 
-            // find position Three -- This isn't guaranteed
-            if (signalPatterns.seven != 0 && signalPatterns.two != '' && p4 && p6) {
-                let notQuiteTwo = signalPatterns.seven.split('').concat(p4, p6);
-                // console.log('Seven plus p4 and p6', notQuiteTwo, 'vs Two:', signalPatterns.two.split(''));
-                p3 = signalPatterns.two.split('').diff(notQuiteTwo);
-                console.log('Position Three:', p3);
-            }
+            // // find position Three -- This isn't guaranteed
+            // if (signalPatterns.seven != 0 && signalPatterns.two != '' && p4 && p6) {
+            //     let notQuiteTwo = signalPatterns.seven.split('').concat(p4, p6);
+            //     // console.log('Seven plus p4 and p6', notQuiteTwo, 'vs Two:', signalPatterns.two.split(''));
+            //     p3 = signalPatterns.two.split('').diff(notQuiteTwo);
+            //     console.log('Position Three:', p3);
+            // }
         }
             
         for (let j = row.length - 1; j >= 0; j--) {
@@ -282,7 +304,11 @@ fs.readFile('inputD8.txt', function(err, data) {
                 }
             }
 
-            // find position 3
+             // find position Three
+             if (p0 && p6 && signalPatterns.two && signalPatterns.three && signalPatterns.five) {
+                p3 = signalPatterns.two.split('').intersect(signalPatterns.five.split('')).intersect(signalPatterns.three.split('')).filter(x => x != p0).filter(x => x != p6);
+                console.log('Is this p3?', p3);
+            }
 
             // find position four
             if (signalPatterns.eight != '' && signalPatterns.nine != '') {
@@ -350,7 +376,7 @@ fs.readFile('inputD8.txt', function(err, data) {
         let outputNumber = '';
         const outputConversionArray = [];
         for(let item = 0; item < lastFour.length; item++) {
-            let a = lastFour[item]
+            let a = lastFour[item].split('');
             console.log('value', a, 'at index', item);
             
             switch(true) {
@@ -413,4 +439,6 @@ fs.readFile('inputD8.txt', function(err, data) {
         sum += outputValues[i];
     }
     console.log('sum of output array', sum);
+    // console.log('Expecting true', equalsIgnoreOrder(arrA, arrB));
+    // console.log('Expecting false', equalsIgnoreOrder(arrA, arrC));
 });
