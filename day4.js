@@ -27,6 +27,29 @@ import fs from 'fs';
  * 
  */
 
+function bingoCardCreator(arr) {
+    const card = {
+        row1: '',
+        row2: '',
+        row3: '',
+        row4: '',
+        row5: '',
+    };
+
+    for (let i = 1; i < arr.length; i++) {
+        if (arr[i] === '') {
+            console.log('i is:', i, 'arr is a space', arr[i]);
+            card.row1 = arr[i + 1];
+            card.row2 = arr[i + 2];
+            card.row3 = arr[i + 3];
+            card.row4 = arr[i + 4];
+            card.row5 = arr[i + 5];
+        }
+        console.log('Card', card);
+    }
+    return card;
+}
+
 fs.readFile('inputD4.txt', function(err, data) {
     try {
         if (err) throw err;
