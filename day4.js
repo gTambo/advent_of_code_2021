@@ -45,6 +45,30 @@ function bingoCardCreator(arr) {
     return allBingoCards;
 }
 
+// input is an integer to compare against for matches and a 5x5 bingo board object 
+function findMatches(randomInt, bingoBoard) {
+    // output willl be new bingoBoard object with matches marked
+    
+    // create anonymous function to check for matches
+    const checkRow = (checkInt, row) => {
+        for (let item of row) {
+            if (item === checkInt) {
+                item = 'b', item;
+            }
+        }
+    } 
+
+    const nextRoundBoard = {
+        row1: checkRow(randomInt, bingoBoard.row1),
+        row2: checkRow(randomInt, bingoBoard.row2),
+        row3: checkRow(randomInt, bingoBoard.row3),
+        row4: checkRow(randomInt, bingoBoard.row4),
+        row5: checkRow(randomInt, bingoBoard.row5),
+    }
+
+    return nextRoundBoard;
+}
+
 fs.readFile('inputD4.txt', function(err, data) {
     try {
         if (err) throw err;
@@ -67,6 +91,10 @@ fs.readFile('inputD4.txt', function(err, data) {
         //         console.log('i is:', i, 'input is a space', input[i]);
         //     }
         // }
+
+        // write function that takes in the drawNumbers and bingoCards array, 
+        // and gives out the boards with matches, using match checker function
+        
 
         console.log('Third input item', input[2], 'input length', input.length);
         console.log("bingo cards", bingoCards, 'number of bingo cards', bingoCards.length);
