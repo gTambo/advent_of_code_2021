@@ -32,11 +32,11 @@ function bingoCardCreator(arr) {
 
     for (let i = 1; i < arr.length; i+= 6) {
         const card = {
-            row1: arr[i + 1],
-            row2: arr[i + 2],
-            row3: arr[i + 3],
-            row4: arr[i + 4],
-            row5: arr[i + 5],
+            row1: arr[i + 1].split(/\s+/),
+            row2: arr[i + 2].split(/\s+/),
+            row3: arr[i + 3].split(/\s+/),
+            row4: arr[i + 4].split(/\s+/),
+            row5: arr[i + 5].split(/\s+/),
         }
 
         // console.log('Card', card);
@@ -51,9 +51,13 @@ function findMatches(randomInt, bingoBoard) {
     
     // create anonymous function to check for matches
     const checkRow = (checkInt, row) => {
+        console.log('looking for a match', checkInt);
         for (let item of row) {
+            console.log('this:', item, 'is an item in row:', row);
             if (item === checkInt) {
-                item = 'b', item;
+                console.log('found a match', item, checkInt);
+                item = 'b' + item;
+                console.log('item is now:', item);
             }
         }
     } 
@@ -80,9 +84,9 @@ fs.readFile('inputD4.txt', function(err, data) {
 
         const drawNumbers = input[0].split(',');
 
-        for (let item of drawNumbers) {
-            console.log(item);
-        }
+        // for (let item of drawNumbers) {
+        //     console.log(item);
+        // }
 
         const bingoCards = bingoCardCreator(input);
 
@@ -94,10 +98,31 @@ fs.readFile('inputD4.txt', function(err, data) {
 
         // write function that takes in the drawNumbers and bingoCards array, 
         // and gives out the boards with matches, using match checker function
-        
+        const firstFiveRounds = (integerArray, cardsArray) => {
+            let roundFive = [];
+            for (let i = 0; i < 5; i++) {
 
-        console.log('Third input item', input[2], 'input length', input.length);
-        console.log("bingo cards", bingoCards, 'number of bingo cards', bingoCards.length);
+                const nextRound = [];
+                let newCard = {};
+                for (let card of cardsArray) {
+                    console.log('the is a bingo card', card);
+                    console.log('check cards for this number', integerArray[i]);
+                    newCard = findMatches(integerArray[i], card);
+                    nextRound.push(newCard);
+                }
+                // console.log('Next Round array', nextRound);
+                roundFive = [...roundFive, nextRound];
+            }
+            // console.log('round Five is now:', roundFive);
+            return roundFive;
+        }
+
+        const round5 = firstFiveRounds(drawNumbers, bingoCards);
+
+        console.log(round5[4]);
+        // console.log('Third input item', input[2], 'input length', input.length);
+        // console.log("bingo cards", bingoCards, 'number of bingo cards', bingoCards.length);
+
 
     } catch (err) {
         console.log('There was an error:', err);
