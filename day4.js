@@ -27,6 +27,44 @@ import fs from 'fs';
  * 
  */
 
+function bingoCheckColumn(boardObject){
+    console.log('Checking column for bingo');
+    for (let i = 0; i < 5; i++) {
+        if (
+            boardObject.row1[i].includes('b') &&
+            boardObject.row2[i].includes('b') &&
+            boardObject.row3[i].includes('b') &&
+            boardObject.row4[i].includes('b') &&
+            boardObject.row5[i].includes('b')
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+function bingoCheckRow(boardObject) {    
+    console.log('Checking row for bingo');
+    const isMarked = (element) => {
+        if(element.includes('b')) {
+            return true;
+        }
+    }
+    if (
+        boardObject.row1.every(isMarked) ||
+        boardObject.row2.every(isMarked) ||
+        boardObject.row3.every(isMarked) ||
+        boardObject.row4.every(isMarked) ||
+        boardObject.row5.every(isMarked)
+    ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 function bingoCardCreator(arr) {
     const allBingoCards = [];
 
@@ -148,7 +186,14 @@ fs.readFile('inputD4.txt', function(err, data) {
         console.log('fifth round', roundFive, 'Fifth number', drawNumbers[4]);
         // const round5 = firstFiveRounds(drawNumbers, bingoCards);
 
-
+        // check for bingo after round 5
+        for (let i = 0; i < roundFive.length; i++) {
+            if (bingoCheckColumn(roundFive[i]) || bingoCheckRow(roundFive[i])) {
+                console.log('Found Bingo in board number', i, ':', roundFive[i]);
+            } else {
+                console.log('No bingo yet.');
+            }
+        }
         // console.log('Last card', round5.at(-1), 'first 5 numbers', drawNumbers[0], drawNumbers[1], drawNumbers[2], drawNumbers[3], drawNumbers[4], 'initial bingo cards:', bingoCards.length, 'total cards after first 5 rounds:', round5.length);
         // console.log('Third input item', input[2], 'input length', input.length);
         // console.log("bingo cards", bingoCards, 'number of bingo cards', bingoCards.length);
