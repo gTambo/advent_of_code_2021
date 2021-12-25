@@ -51,15 +51,20 @@ function findMatches(randomInt, bingoBoard) {
     
     // create anonymous function to check for matches
     const checkRow = (checkInt, row) => {
-        console.log('looking for a match', checkInt);
+        const newRow = [];
+        // console.log('looking for a match', checkInt);
         for (let item of row) {
-            console.log('this:', item, 'is an item in row:', row);
+            // console.log('this:', item, 'is an item in row:', row);
             if (item === checkInt) {
-                console.log('found a match', item, checkInt);
-                item = 'b' + item;
-                console.log('item is now:', item);
+                // console.log('found a match', item, checkInt);
+                newRow.push('b' + item);
+                // console.log('item is now:', item);
+            } else {
+                newRow.push(item);
             }
         }
+        console.log('New Row Generated', newRow);
+        return newRow;
     } 
 
     const nextRoundBoard = {
@@ -71,6 +76,15 @@ function findMatches(randomInt, bingoBoard) {
     }
 
     return nextRoundBoard;
+}
+
+// function to run a round of bingo - draw a number, search for matches
+function playARound(drawnNumber, bingoBoards) {
+    const bingoRound = [];
+    for (let board of bingoBoards) {
+        bingoRound.push(findMatches(drawnNumber, board)); 
+    }
+    return bingoRound;
 }
 
 fs.readFile('inputD4.txt', function(err, data) {
@@ -99,27 +113,43 @@ fs.readFile('inputD4.txt', function(err, data) {
         // write function that takes in the drawNumbers and bingoCards array, 
         // and gives out the boards with matches, using match checker function
         const firstFiveRounds = (integerArray, cardsArray) => {
-            let roundFive = [];
+            let thisRound = cardsArray;
             for (let i = 0; i < 5; i++) {
 
                 const nextRound = [];
                 let newCard = {};
-                for (let card of cardsArray) {
+                for (let card of thisRound) {
                     console.log('the is a bingo card', card);
                     console.log('check cards for this number', integerArray[i]);
                     newCard = findMatches(integerArray[i], card);
                     nextRound.push(newCard);
                 }
                 // console.log('Next Round array', nextRound);
-                roundFive = [...roundFive, nextRound];
+                thisRound = nextRound;
             }
-            // console.log('round Five is now:', roundFive);
-            return roundFive;
+            // console.log('round Five is now:', thisRound);
+            return thisRound;
         }
 
-        const round5 = firstFiveRounds(drawNumbers, bingoCards);
+        // console.log('what is drawNumbers[0]?', drawNumbers[0], 'and bingoCards[0]?', bingoCards[0]);
+        const roundOne = playARound(drawNumbers[0], bingoCards);
+        // console.log('first round', roundOne);
 
-        console.log(round5[4]);
+        const roundTwo = playARound(drawNumbers[1], roundOne);
+        // console.log('second round', roundTwo, 'second number', drawNumbers[1]);
+        
+        const roundThree = playARound(drawNumbers[2], roundTwo);
+        // console.log('third round', roundThree, 'third number', drawNumbers[2]);
+
+        const roundFour = playARound(drawNumbers[3], roundThree);
+        // console.log('fourth round', roundFour, 'fourth number', drawNumbers[3]);
+
+        const roundFive = playARound(drawNumbers[4], roundFour);
+        console.log('fifth round', roundFive, 'Fifth number', drawNumbers[4]);
+        // const round5 = firstFiveRounds(drawNumbers, bingoCards);
+
+
+        // console.log('Last card', round5.at(-1), 'first 5 numbers', drawNumbers[0], drawNumbers[1], drawNumbers[2], drawNumbers[3], drawNumbers[4], 'initial bingo cards:', bingoCards.length, 'total cards after first 5 rounds:', round5.length);
         // console.log('Third input item', input[2], 'input length', input.length);
         // console.log("bingo cards", bingoCards, 'number of bingo cards', bingoCards.length);
 
